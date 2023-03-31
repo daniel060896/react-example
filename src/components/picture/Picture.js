@@ -36,7 +36,7 @@ function Picture({ child, id, createdBy, photoUrl, tags, takenOn }) {
                 {tags.slice(0, 3).map((tag) => (
                   <Link
                     className="my-auto mx-1"
-                    to={`/search?tag=${tag}`}
+                    to={`/tag/${encodeURIComponent(tag)}`}
                     key={tag}
                   >
                     <Button

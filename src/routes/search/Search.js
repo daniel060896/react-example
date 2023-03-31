@@ -13,7 +13,9 @@ function Search() {
   const { status, objects, tag, page, pageSize, pages } =
     useSelector(searchState);
   function getUrl(page_, pageSize_) {
-    return `/search?tag=${tag}&page=${page_}&page_size=${pageSize_}`;
+    return `/tag/${encodeURIComponent(
+      tag
+    )}?page=${page_}&page_size=${pageSize_}`;
   }
   const dispatch = useDispatch();
   useEffect(() => {

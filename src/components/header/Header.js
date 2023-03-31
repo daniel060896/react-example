@@ -18,7 +18,7 @@ function Header({ child, title }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    navigate(`/search?tag=${tag}`);
+    navigate(`/tag/${encodeURIComponent(tag)}`);
   }
   function handleChange(event) {
     setTag(event.target.value);
