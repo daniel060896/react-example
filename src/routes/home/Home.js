@@ -13,13 +13,14 @@ function getUrl(page, pageSize) {
 
 function Home() {
   const { qPage, qPageSize } = useLoaderData();
-  const { status, objects, page, pageSize, pages } = useSelector(homeState);
+  const { status, objects, page, pageSize, pages, error_details } =
+    useSelector(homeState);
   const dispatch = useDispatch();
   useEffect(() => {
     if (status === "idle" || page !== qPage || pageSize !== qPageSize) {
       dispatch(getPhotosAsync({ page: qPage, pageSize: qPageSize }));
     }
-  }, [qPage, qPageSize, pages, page, pageSize, status, dispatch]);
+  }, [qPage, qPageSize, page, pageSize, status]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <Layout
       title="Home"
@@ -30,10 +31,7 @@ function Home() {
               className="alert alert-danger d-flex align-items-center"
               role="alert"
             >
-              <div>
-                There are some internal server error. Please try again in a few
-                minutes
-              </div>
+              <div>{error_details.message}</div>
             </div>
           </Container>
         ) : (

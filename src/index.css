@@ -11,7 +11,3 @@ html {
 body{
     font-size: 1.6rem;
 };
-a {
-    color: inherit; /* blue colors for links too */
-    text-decoration: inherit; /* no underline */
-  };

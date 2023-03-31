@@ -10,7 +10,7 @@ import { useEffect } from "react";
 
 function Search() {
   const { qTag, qPage, qPageSize } = useLoaderData();
-  const { status, objects, tag, page, pageSize, pages } =
+  const { status, objects, tag, page, pageSize, pages, error_details } =
     useSelector(searchState);
   function getUrl(page_, pageSize_) {
     return `/tag/${encodeURIComponent(
@@ -29,7 +29,7 @@ function Search() {
         searchPhotosAsync({ tag: qTag || "", page: qPage, pageSize: qPageSize })
       );
     }
-  }, [qTag, qPage, qPageSize, pages, status, page, pageSize, tag, dispatch]);
+  }, [qTag, qPage, qPageSize, tag, page, pageSize, status]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <Layout
       title="Home"
@@ -40,10 +40,7 @@ function Search() {
               className="alert alert-danger d-flex align-items-center"
               role="alert"
             >
-              <div>
-                There are some internal server error. Please try again in a few
-                minutes
-              </div>
+              <div>{error_details.message}</div>
             </div>
           </Container>
         ) : (

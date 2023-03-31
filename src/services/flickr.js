@@ -1,4 +1,6 @@
 import { FLICKR_URL, FLICKR_API_KEY } from "./../common/constants";
+const SERVICE_NOT_AVAILABLE_MESSAGE =
+  "This service is not available, please try again in a few minutes";
 
 function flickrFecth({ method, extraQueryParams }) {
   let queryParams = {
@@ -13,18 +15,20 @@ function flickrFecth({ method, extraQueryParams }) {
       .then(
         (res) => {
           if (res.status >= 500)
-            return { stat: "bad", message: "Service Unavailable" };
+            return { stat: "bad", message: SERVICE_NOT_AVAILABLE_MESSAGE };
           else return res.json();
         },
         (error) => {
-          return { stat: "bad", message: "No connection" };
+          return { stat: "bad", message: SERVICE_NOT_AVAILABLE_MESSAGE };
         }
       )
       .then((result) => {
         if (result.stat === "ok") {
           resolve({ result });
         } else {
-          resolve({ error: { message: result.message || "Error" } });
+          resolve({
+            error: { message: result.message || SERVICE_NOT_AVAILABLE_MESSAGE },
+          });
         }
       });
   });
